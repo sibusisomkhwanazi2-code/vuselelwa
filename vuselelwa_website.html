@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vuselelwa — IT Renewal for South Africa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0f0e0b;
+  --paper: #f5f2eb;
+  --gold: #c8a84b;
+  --gold-light: #e8d5a0;
+  --gold-pale: #f7f0dc;
+  --teal: #1a5c52;
+  --teal-light: #2b8a7c;
+  --teal-pale: #e4f0ee;
+  --ash: #6b6760;
+  --rule: rgba(15,14,11,0.12);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 68px;
+  background: rgba(245,242,235,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+  transition: box-shadow .3s;
+}
+nav.scrolled { box-shadow: 0 2px 20px rgba(15,14,11,0.08); }
+.nav-logo { display: flex; align-items: baseline; gap: .4rem; text-decoration: none; }
+.nav-logo-v { font-family: var(--serif); font-size: 1.5rem; font-weight: 900; color: var(--ink); letter-spacing: -.02em; }
+.nav-logo-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-bottom: 2px; flex-shrink: 0; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-size: .8rem; font-weight: 500; color: var(--ash); text-decoration: none; letter-spacing: .06em; text-transform: uppercase; transition: color .2s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  font-family: var(--sans); font-size: .8rem; font-weight: 500;
+  color: var(--paper); background: var(--ink);
+  padding: .55rem 1.3rem; border-radius: 2px; text-decoration: none;
+  letter-spacing: .04em; transition: background .2s, color .2s;
+}
+.nav-cta:hover { background: var(--teal); }
+
+/* ── HERO ── */
+#home {
+  min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 3rem 4rem; position: relative; overflow: hidden;
+  padding-top: 68px;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: var(--paper);
+}
+.hero-bg-rule {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 79px,
+      rgba(15,14,11,0.06) 79px,
+      rgba(15,14,11,0.06) 80px
+    );
+}
+.hero-gold-bar {
+  position: absolute; top: 0; left: 0; width: 6px; height: 100%;
+  background: linear-gradient(to bottom, var(--gold) 0%, var(--teal) 100%);
+}
+.hero-content { position: relative; z-index: 1; max-width: 900px; }
+.hero-label {
+  font-size: .75rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 2rem; display: flex; align-items: center; gap: .75rem;
+}
+.hero-label::before {
+  content: ''; display: block; width: 40px; height: 1px; background: var(--gold);
+}
+.hero-headline {
+  font-family: var(--serif); font-size: clamp(3.2rem, 7vw, 6.5rem);
+  font-weight: 900; line-height: .95; letter-spacing: -.04em;
+  color: var(--ink); margin-bottom: 2rem;
+}
+.hero-headline em { font-style: italic; color: var(--teal); }
+.hero-sub {
+  font-size: 1.1rem; font-weight: 300; color: var(--ash); line-height: 1.7;
+  max-width: 520px; margin-bottom: 3rem;
+}
+.hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.btn-primary {
+  font-family: var(--sans); font-size: .85rem; font-weight: 500;
+  color: var(--paper); background: var(--ink);
+  padding: .85rem 2rem; border-radius: 2px; text-decoration: none;
+  letter-spacing: .04em; transition: background .25s;
+}
+.btn-primary:hover { background: var(--teal); }
+.btn-secondary {
+  font-family: var(--sans); font-size: .85rem; font-weight: 500;
+  color: var(--ink); text-decoration: none; letter-spacing: .04em;
+  display: flex; align-items: center; gap: .5rem;
+  border-bottom: 1px solid var(--ink); padding-bottom: 2px; transition: color .2s, border-color .2s;
+}
+.btn-secondary:hover { color: var(--teal); border-color: var(--teal); }
+.hero-stats {
+  position: absolute; right: 3rem; bottom: 4rem;
+  display: flex; flex-direction: column; gap: 2rem; z-index: 1;
+}
+.hero-stat { text-align: right; }
+.hero-stat-num {
+  font-family: var(--serif); font-size: 2.4rem; font-weight: 700;
+  color: var(--ink); line-height: 1; letter-spacing: -.03em;
+}
+.hero-stat-num span { color: var(--gold); }
+.hero-stat-label { font-size: .72rem; color: var(--ash); letter-spacing: .06em; text-transform: uppercase; margin-top: .25rem; }
+
+/* ── SECTION BASE ── */
+section { scroll-margin-top: 68px; }
+.section-inner { max-width: 1160px; margin: 0 auto; padding: 0 3rem; }
+.section-label {
+  font-size: .72rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.5rem; display: flex; align-items: center; gap: .75rem;
+}
+.section-label::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
+.section-title {
+  font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700;
+  line-height: 1.1; letter-spacing: -.03em; color: var(--ink);
+}
+.section-title em { font-style: italic; color: var(--teal); }
+.section-rule { width: 60px; height: 2px; background: var(--gold); margin: 2rem 0; }
+
+/* ── ABOUT ── */
+#about { padding: 7rem 0; border-bottom: 1px solid var(--rule); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 3rem; }
+.about-left .section-title { margin-bottom: 1.5rem; }
+.about-body { font-size: 1rem; font-weight: 300; color: var(--ash); line-height: 1.85; margin-bottom: 1.5rem; }
+.about-body strong { color: var(--ink); font-weight: 500; }
+.about-paradox {
+  background: var(--ink); color: var(--paper);
+  padding: 2rem 2.2rem; border-radius: 2px; position: relative; overflow: hidden;
+  margin-bottom: 2rem;
+}
+.about-paradox::before {
+  content: '"'; position: absolute; top: -.5rem; left: 1rem;
+  font-family: var(--serif); font-size: 8rem; line-height: 1;
+  color: rgba(200,168,75,.15); pointer-events: none;
+}
+.about-paradox p { font-family: var(--serif); font-size: 1.15rem; font-style: italic; line-height: 1.6; position: relative; }
+.about-paradox cite { display: block; font-size: .75rem; font-style: normal; color: var(--gold); margin-top: 1rem; letter-spacing: .08em; text-transform: uppercase; }
+.about-pillars { display: flex; flex-direction: column; gap: 1.2rem; }
+.about-pillar {
+  display: flex; gap: 1.2rem; align-items: flex-start;
+  padding: 1.4rem; border: 1px solid var(--rule); border-radius: 2px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.about-pillar:hover { border-color: var(--gold-light); box-shadow: 0 4px 20px rgba(15,14,11,0.06); }
+.pillar-icon {
+  width: 40px; height: 40px; border-radius: 2px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 1.1rem; font-weight: 900;
+}
+.pi-teal { background: var(--teal-pale); color: var(--teal); }
+.pi-gold { background: var(--gold-pale); color: #7a5e1a; }
+.pi-ink { background: rgba(15,14,11,0.06); color: var(--ink); }
+.pillar-text h4 { font-size: .9rem; font-weight: 500; margin-bottom: .3rem; }
+.pillar-text p { font-size: .82rem; color: var(--ash); line-height: 1.6; font-weight: 300; }
+
+/* ── SERVICES ── */
+#services {
+  padding: 7rem 0;
+  background: var(--ink); color: var(--paper);
+  border-bottom: 1px solid rgba(245,242,235,.1);
+}
+#services .section-title { color: var(--paper); }
+#services .section-label { color: var(--gold); }
+#services .section-label::before { background: var(--gold); }
+#services .section-rule { background: var(--gold); }
+.services-intro { font-size: 1rem; font-weight: 300; color: rgba(245,242,235,.65); line-height: 1.8; max-width: 600px; margin-bottom: 3.5rem; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(245,242,235,.1); border: 1px solid rgba(245,242,235,.1); }
+.service-card {
+  padding: 2.2rem; background: var(--ink);
+  position: relative; overflow: hidden;
+  transition: background .25s;
+  cursor: default;
+}
+.service-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: transparent; transition: background .25s;
+}
+.service-card:hover { background: rgba(245,242,235,.04); }
+.service-card:hover::before { background: var(--gold); }
+.service-num { font-family: var(--serif); font-size: 3.5rem; font-weight: 900; color: rgba(245,242,235,.06); line-height: 1; margin-bottom: 1.5rem; letter-spacing: -.04em; }
+.service-tag {
+  display: inline-block; font-size: .68rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid rgba(200,168,75,.3); padding: .25rem .6rem; border-radius: 1px; margin-bottom: 1rem;
+}
+.service-name { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; color: var(--paper); margin-bottom: .75rem; line-height: 1.2; }
+.service-desc { font-size: .85rem; font-weight: 300; color: rgba(245,242,235,.6); line-height: 1.7; margin-bottom: 1.5rem; }
+.service-items { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+.service-items li { font-size: .78rem; color: rgba(245,242,235,.5); padding-left: 1rem; position: relative; line-height: 1.5; font-weight: 300; }
+.service-items li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+
+/* ── MODEL ── */
+#model { padding: 7rem 0; border-bottom: 1px solid var(--rule); }
+.model-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 4rem; }
+.model-intro { font-size: 1rem; font-weight: 300; color: var(--ash); line-height: 1.8; }
+.model-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; position: relative; }
+.model-step {
+  padding: 2.5rem 2rem; border: 1px solid var(--rule); border-radius: 2px;
+  position: relative; overflow: hidden; background: var(--paper);
+  transition: box-shadow .25s;
+}
+.model-step:hover { box-shadow: 0 8px 32px rgba(15,14,11,0.08); }
+.model-step-accent {
+  position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+}
+.ms-consult { background: var(--teal); }
+.ms-build { background: var(--gold); }
+.ms-empower { background: var(--ink); }
+.model-step-num { font-family: var(--serif); font-size: 4rem; font-weight: 900; line-height: 1; letter-spacing: -.04em; margin-bottom: 1.2rem; }
+.ms-c .model-step-num { color: var(--teal-pale); }
+.ms-b .model-step-num { color: var(--gold-pale); }
+.ms-e .model-step-num { color: rgba(15,14,11,.08); }
+.model-step h3 { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; margin-bottom: .75rem; }
+.model-step p { font-size: .88rem; font-weight: 300; color: var(--ash); line-height: 1.75; margin-bottom: 1.25rem; }
+.model-step ul { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+.model-step ul li { font-size: .8rem; color: var(--ash); padding-left: 1rem; position: relative; font-weight: 300; line-height: 1.5; }
+.model-step ul li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-size: .75rem; }
+.model-vas { margin-top: 5rem; }
+.model-vas-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; margin-bottom: 2rem; }
+.vas-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.vas-card {
+  display: flex; gap: 1.2rem; padding: 1.5rem;
+  border: 1px solid var(--rule); border-radius: 2px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.vas-card:hover { border-color: var(--gold-light); box-shadow: 0 4px 20px rgba(15,14,11,.06); }
+.vas-num {
+  font-family: var(--serif); font-size: 1.8rem; font-weight: 900; color: var(--gold-light);
+  line-height: 1; flex-shrink: 0; width: 2.5rem;
+}
+.vas-text h4 { font-size: .95rem; font-weight: 500; margin-bottom: .4rem; }
+.vas-text p { font-size: .82rem; color: var(--ash); line-height: 1.65; font-weight: 300; }
+
+/* ── CHALLENGES ── */
+#challenges { padding: 7rem 0; background: var(--teal-pale); border-bottom: 1px solid rgba(26,92,82,.12); }
+.challenges-header { margin-bottom: 3.5rem; }
+.challenges-header .section-title { max-width: 700px; }
+.challenges-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.challenge-card {
+  background: var(--paper); border-radius: 2px; border: 1px solid rgba(26,92,82,.12);
+  overflow: hidden; transition: box-shadow .25s;
+}
+.challenge-card:hover { box-shadow: 0 8px 32px rgba(26,92,82,.12); }
+.challenge-card-top {
+  padding: 1.8rem 1.8rem 1.4rem; border-bottom: 1px solid rgba(26,92,82,.1);
+}
+.challenge-seg {
+  display: inline-block; font-size: .68rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  padding: .25rem .6rem; border-radius: 1px; margin-bottom: .8rem;
+}
+.cs-startup { background: #EEEDFE; color: #3C3489; }
+.cs-smme { background: #E1F5EE; color: #085041; }
+.cs-enterprise { background: #FAEEDA; color: #633806; }
+.challenge-trap { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; margin-bottom: .5rem; line-height: 1.3; }
+.challenge-summary { font-size: .82rem; color: var(--ash); line-height: 1.6; font-weight: 300; }
+.challenge-card-body { padding: 1.4rem 1.8rem 1.8rem; }
+.challenge-items { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+.challenge-items li { font-size: .8rem; color: var(--ash); padding-left: 1rem; position: relative; line-height: 1.5; font-weight: 300; }
+.challenge-items li::before { content: '—'; position: absolute; left: 0; color: var(--teal); font-size: .75rem; }
+.challenge-response {
+  margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid rgba(26,92,82,.1);
+  font-size: .78rem; font-weight: 500; color: var(--teal); display: flex; align-items: center; gap: .5rem;
+}
+.challenge-response::before { content: ''; display: block; width: 20px; height: 1px; background: var(--teal); flex-shrink: 0; }
+
+/* ── CONTACT ── */
+#contact { padding: 7rem 0; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+.contact-left .section-title { margin-bottom: 1.5rem; }
+.contact-body { font-size: 1rem; font-weight: 300; color: var(--ash); line-height: 1.85; margin-bottom: 2rem; }
+.contact-details { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+.contact-detail { display: flex; align-items: flex-start; gap: 1rem; }
+.cd-label { font-size: .7rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); min-width: 80px; margin-top: .1rem; }
+.cd-val { font-size: .9rem; color: var(--ash); font-weight: 300; line-height: 1.5; }
+.contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: .4rem; }
+.form-label { font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--ash); }
+.form-input, .form-select, .form-textarea {
+  font-family: var(--sans); font-size: .9rem; font-weight: 300;
+  color: var(--ink); background: transparent;
+  border: 1px solid var(--rule); border-radius: 2px;
+  padding: .85rem 1rem; outline: none;
+  transition: border-color .2s;
+  appearance: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(26,92,82,.08);
+}
+.form-textarea { resize: vertical; min-height: 110px; }
+.form-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6760' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; cursor: pointer; }
+.form-submit {
+  font-family: var(--sans); font-size: .88rem; font-weight: 500; letter-spacing: .04em;
+  color: var(--paper); background: var(--ink); border: none;
+  padding: 1rem 2rem; border-radius: 2px; cursor: pointer;
+  transition: background .25s; text-align: center;
+}
+.form-submit:hover { background: var(--teal); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink); color: rgba(245,242,235,.5);
+  padding: 3rem 3rem 2rem;
+}
+.footer-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+  padding-bottom: 2.5rem; border-bottom: 1px solid rgba(245,242,235,.1);
+}
+.footer-brand { display: flex; flex-direction: column; gap: 1rem; }
+.footer-logo { font-family: var(--serif); font-size: 1.4rem; font-weight: 900; color: var(--paper); letter-spacing: -.02em; }
+.footer-tagline { font-size: .82rem; font-weight: 300; line-height: 1.7; max-width: 240px; }
+.footer-col h5 { font-size: .72rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+.footer-col ul li a { font-size: .82rem; color: rgba(245,242,235,.5); text-decoration: none; font-weight: 300; transition: color .2s; }
+.footer-col ul li a:hover { color: var(--paper); }
+.footer-bottom {
+  max-width: 1160px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 1.5rem;
+  font-size: .75rem; color: rgba(245,242,235,.3);
+}
+.footer-bottom a { color: rgba(245,242,235,.4); text-decoration: none; }
+
+/* ── DIVIDER ── */
+.gold-divider { width: 100%; height: 3px; background: linear-gradient(to right, var(--teal) 0%, var(--gold) 50%, var(--teal) 100%); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate { opacity: 0; animation: fadeUp .6s ease forwards; }
+.a1 { animation-delay: .1s; }
+.a2 { animation-delay: .25s; }
+.a3 { animation-delay: .4s; }
+.a4 { animation-delay: .55s; }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  #home { padding: 68px 1.5rem 3rem; }
+  .hero-stats { display: none; }
+  .section-inner { padding: 0 1.5rem; }
+  .about-grid, .model-header, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .services-grid, .challenges-grid { grid-template-columns: 1fr; }
+  .model-steps { grid-template-columns: 1fr; }
+  .vas-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { padding: 2.5rem 1.5rem 1.5rem; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#home" class="nav-logo">
+    <span class="nav-logo-v">Vuselelwa</span>
+    <span class="nav-logo-dot"></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#model">Our model</a></li>
+    <li><a href="#challenges">Who we serve</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Start your renewal</a>
+</nav>
+
+<!-- ── PAGE 1: HERO ── -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-rule"></div>
+  <div class="hero-gold-bar"></div>
+
+  <div class="hero-content">
+    <div class="hero-label animate a1">South African IT Partner — Est. Pretoria</div>
+    <h1 class="hero-headline animate a2">
+      Your<br><em>Digital</em><br>Renewal<br>Starts Here
+    </h1>
+    <p class="hero-sub animate a3">
+      We are South Africa's IT renewal company. We Consult deeply, Build purposefully, and Empower permanently — so your business thrives in the Digital Paradox of 2026 and beyond.
+    </p>
+    <div class="hero-actions animate a4">
+      <a href="#services" class="btn-primary">Explore our services</a>
+      <a href="#model" class="btn-secondary">Our approach ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-stats animate a4">
+    <div class="hero-stat">
+      <div class="hero-stat-num">3<span>,</span>303</div>
+      <div class="hero-stat-label">Funded SA startups</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">R<span>10m</span></div>
+      <div class="hero-stat-label">Max POPIA penalty</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">R<span>186bn</span></div>
+      <div class="hero-stat-label">Cloud value for SMMEs</div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ── PAGE 2: ABOUT ── -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">About Vuselelwa</div>
+    <div class="about-grid">
+      <div class="about-left">
+        <h2 class="section-title">We are South Africa's<br><em>IT renewal company</em></h2>
+        <div class="section-rule"></div>
+        <p class="about-body">
+          <strong>Vuselelwa</strong> — meaning "renewal" or "revival" in isiZulu — is not just our name. It is our promise to every client. South Africa operates in a unique Digital Paradox: world-class financial systems and a booming startup scene, constrained by load-shedding, a widening skills gap, and increasingly strict data sovereignty laws.
+        </p>
+        <p class="about-body">
+          We were founded to serve this specific reality. Where global IT giants offer generic solutions, we offer contextually grounded technology services designed for the South African operating environment — POPIA-compliant, load-shedding resilient, B-BBEE aware, and built to last.
+        </p>
+        <div class="about-paradox">
+          <p>"South Africa's Digital Paradox is not a problem to be solved — it is a landscape to be navigated. Vuselelwa is the guide that understands every road."</p>
+          <cite>— Vuselelwa founding philosophy</cite>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="about-pillars">
+          <div class="about-pillar">
+            <div class="pillar-icon pi-teal">C</div>
+            <div class="pillar-text">
+              <h4>Contextually grounded</h4>
+              <p>We don't offer generic IT solutions. Every engagement begins with understanding your specific South African context — load-shedding exposure, POPIA obligations, B-BBEE requirements, and labour law implications of your technology choices.</p>
+            </div>
+          </div>
+          <div class="about-pillar">
+            <div class="pillar-icon pi-gold">L</div>
+            <div class="pillar-text">
+              <h4>Locally sovereign</h4>
+              <p>We architect solutions within South Africa's borders, compliant with the 2026 Data Sovereignty laws and National Data and Cloud Policy. Your data stays in SA, your compliance is documented, and your enterprise partnerships are unblocked.</p>
+            </div>
+          </div>
+          <div class="about-pillar">
+            <div class="pillar-icon pi-ink">H</div>
+            <div class="pillar-text">
+              <h4>Human-centred AI</h4>
+              <p>We implement AI that augments your existing staff — not replaces them. In South Africa's employment landscape, technology that multiplies human productivity is the only kind that earns community trust and long-term adoption.</p>
+            </div>
+          </div>
+          <div class="about-pillar">
+            <div class="pillar-icon pi-teal">R</div>
+            <div class="pillar-text">
+              <h4>Renewal through empowerment</h4>
+              <p>We don't create dependency. Through the Vuselelwa Academy and hands-on knowledge transfer, we ensure your internal team can own and manage the systems we build — achieving genuine digital revival, not IT vendor lock-in.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PAGE 3: SERVICES ── -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-label">Service offerings</div>
+    <h2 class="section-title">Three service brands.<br><em>One promise.</em></h2>
+    <div class="section-rule"></div>
+    <p class="services-intro">Each service brand is designed for a specific segment's deepest challenges. Every offering is modular — begin with a single pillar and expand as trust is established.</p>
+
+    <div class="services-grid">
+
+      <!-- THE LAUNCHPAD -->
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-tag">Gov-funded startups</div>
+        <div class="service-name">The Launchpad</div>
+        <p class="service-desc">Government-funded startups in Fintech, Agritech, and Healthtech face the Compliance Trap — high funder obligations with no IT infrastructure to meet them. The Launchpad solves this from day one.</p>
+        <ul class="service-items">
+          <li>Compliance-as-Code — automated KPI and funder reporting dashboards</li>
+          <li>POPIA Information Officer registration and compliance framework</li>
+          <li>Enterprise-grade MVP architecture — bank integration ready from launch</li>
+          <li>Sovereign cloud setup within SA borders (AWS Cape Town / Azure SA)</li>
+          <li>B-BBEE digital scorecard and audit documentation</li>
+          <li>Load-shedding resilient infrastructure from day one</li>
+        </ul>
+      </div>
+
+      <!-- THE FORTRESS -->
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-tag">Established SMMEs</div>
+        <div class="service-name">The Fortress</div>
+        <p class="service-desc">Established SMMEs face the Existential Threat — a single cybersecurity breach or prolonged load-shedding outage can be fatal. The Fortress provides always-on protection at small-business budgets.</p>
+        <ul class="service-items">
+          <li>Managed cybersecurity — always-on monitoring and endpoint protection</li>
+          <li>Load-shedding resilience-as-a-service — UPS, cloud failover, SD-WAN</li>
+          <li>Cloud migration with FinOps discipline to combat inflation-driven cost creep</li>
+          <li>POPIA compliance gap assessment and continuous monitoring</li>
+          <li>Flat-rate managed IT subscription — helpdesk, patching, backup</li>
+          <li>Monthly Digital Health Check — proactive vulnerability and cost reports</li>
+        </ul>
+      </div>
+
+      <!-- THE NAVIGATOR -->
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-tag">Large enterprises</div>
+        <div class="service-name">The Navigator</div>
+        <p class="service-desc">Large enterprises face the Skills Void — a severe shortage of local AI, Data Science, and cybersecurity talent, combined with legacy system drag and complex ESG and AI governance obligations.</p>
+        <ul class="service-items">
+          <li>AI ethics and governance aligned to the National AI Policy Framework</li>
+          <li>Specialist Pod Teams — developers, data scientists, cybersecurity analysts on retainer</li>
+          <li>Sovereign cloud migration with POPIA and data localisation compliance built in</li>
+          <li>Digital adoption and change management alongside every deployment</li>
+          <li>B-BBEE enterprise development and supplier diversity partnership</li>
+          <li>ESG technology impact reporting — social and environmental metrics</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PAGE 4: MODEL + CHALLENGES ── -->
+<section id="model">
+  <div class="section-inner">
+    <div class="section-label">Our operating model</div>
+    <div class="model-header">
+      <div>
+        <h2 class="section-title">Consult.<br><em>Build.</em><br>Empower.</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div>
+        <p class="model-intro">Rather than competing on price — a race to the bottom — Vuselelwa uses a three-phase delivery model that creates deeply embedded, lasting client relationships. Every engagement is rooted in South Africa's specific operating context before a single line of technology is recommended.</p>
+      </div>
+    </div>
+
+    <div class="model-steps">
+      <div class="model-step ms-c">
+        <div class="model-step-accent ms-consult"></div>
+        <div class="model-step-num">01</div>
+        <h3>Consult</h3>
+        <p>We go deep before we recommend anything. Load-shedding impact, POPIA obligations, B-BBEE positioning, labour law implications of your technology choices, and funder or regulatory context — all understood first.</p>
+        <ul>
+          <li>Load-shedding IT impact assessment</li>
+          <li>POPIA and data sovereignty compliance audit</li>
+          <li>Digital maturity assessment and 90-day roadmap</li>
+          <li>Funder KPI tracking requirements mapping</li>
+          <li>AI readiness and skills gap analysis</li>
+        </ul>
+      </div>
+      <div class="model-step ms-b">
+        <div class="model-step-accent ms-build"></div>
+        <div class="model-step-num">02</div>
+        <h3>Build</h3>
+        <p>We deploy modular, locally-built IT solutions designed for the South African environment — not generic global templates applied to a local context. Everything is sovereign, scalable, and resilient.</p>
+        <ul>
+          <li>Sovereign cloud infrastructure within SA borders</li>
+          <li>Load-shedding resilient hybrid environments</li>
+          <li>Enterprise-grade startup MVPs</li>
+          <li>Compliance-as-Code dashboards</li>
+          <li>AI augmentation tools — productivity, not displacement</li>
+        </ul>
+      </div>
+      <div class="model-step ms-e">
+        <div class="model-step-accent ms-empower"></div>
+        <div class="model-step-num">03</div>
+        <h3>Empower</h3>
+        <p>We don't create dependency. Ongoing training and support ensures your internal team owns and manages the renewal. The Vuselelwa Academy delivers this at every engagement level.</p>
+        <ul>
+          <li>Vuselelwa Academy — free monthly digital literacy workshops</li>
+          <li>AI augmentation training for all staff levels</li>
+          <li>Monthly Digital Health Checks — proactive reporting</li>
+          <li>Internal team handover and knowledge transfer</li>
+          <li>Benefits realisation tracking and reporting</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="model-vas">
+      <div class="model-vas-title">Value-added mechanisms that build lasting loyalty</div>
+      <div class="vas-grid">
+        <div class="vas-card">
+          <div class="vas-num">A</div>
+          <div class="vas-text">
+            <h4>The Vuselelwa Academy</h4>
+            <p>Free monthly webinars and digital literacy workshops for your staff. AI augmentation sessions showing teams how emerging technology makes them more productive. Positions Vuselelwa as a long-term partner, not a vendor.</p>
+          </div>
+        </div>
+        <div class="vas-card">
+          <div class="vas-num">B</div>
+          <div class="vas-text">
+            <h4>The Shared Success model</h4>
+            <p>For government-funded startups: lower upfront cost in exchange for a performance fee triggered by successful follow-on funding rounds or revenue milestones. Our incentives align with yours.</p>
+          </div>
+        </div>
+        <div class="vas-card">
+          <div class="vas-num">C</div>
+          <div class="vas-text">
+            <h4>Proactive Digital Health Checks</h4>
+            <p>Monthly reports covering security vulnerabilities, cloud cost-saving opportunities, POPIA compliance status, and load-shedding resilience score — delivered before you ask, not after a crisis.</p>
+          </div>
+        </div>
+        <div class="vas-card">
+          <div class="vas-num">D</div>
+          <div class="vas-text">
+            <h4>The Renewal narrative</h4>
+            <p>Every engagement is framed as your digital revival story. We publish an annual SA IT Challenges Report and host quarterly Digital Transformation Roundtables — building the Vuselelwa community around your growth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PAGE 4B: CHALLENGES ── -->
+<section id="challenges">
+  <div class="section-inner">
+    <div class="challenges-header">
+      <div class="section-label">Who we serve</div>
+      <h2 class="section-title">Three segments.<br><em>Three distinct challenges.</em><br>One local IT partner.</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="challenges-grid">
+
+      <div class="challenge-card">
+        <div class="challenge-card-top">
+          <span class="challenge-seg cs-startup">Gov-funded startups</span>
+          <div class="challenge-trap">The Compliance Trap</div>
+          <p class="challenge-summary">High administrative burden to maintain funding, combined with no IT systems capable of producing funder-required compliance data automatically.</p>
+        </div>
+        <div class="challenge-card-body">
+          <ul class="challenge-items">
+            <li>Manual KPI reporting consuming 20–30% of founder time</li>
+            <li>No scalable architecture post-seed — MVPs fail enterprise procurement</li>
+            <li>POPIA fines up to R10m with no compliance framework in place</li>
+            <li>Security blind spot — cyber breach can end the company and trigger funder withdrawal</li>
+            <li>Data hosted in US/EU cloud regions in violation of 2026 sovereignty laws</li>
+          </ul>
+          <div class="challenge-response">Vuselelwa solution: The Launchpad</div>
+        </div>
+      </div>
+
+      <div class="challenge-card">
+        <div class="challenge-card-top">
+          <span class="challenge-seg cs-smme">Established SMMEs</span>
+          <div class="challenge-trap">The Existential Threat</div>
+          <p class="challenge-summary">Cybersecurity breaches are now fatal for SMMEs, with no recovery budget. Load-shedding and inflation compound an already tight operational environment.</p>
+        </div>
+        <div class="challenge-card-body">
+          <ul class="challenge-items">
+            <li>Over 80% recognise digital tools as essential — adoption blocked by cost and complexity</li>
+            <li>No internal IT staff — entirely dependent on ad-hoc, reactive support</li>
+            <li>Load-shedding disrupts operations, payments, and customer services daily</li>
+            <li>POPIA compliance gaps — most SMMEs operate without a formal framework</li>
+            <li>AI literacy deficit — staff and leadership lack skills to leverage automation tools</li>
+          </ul>
+          <div class="challenge-response">Vuselelwa solution: The Fortress</div>
+        </div>
+      </div>
+
+      <div class="challenge-card">
+        <div class="challenge-card-top">
+          <span class="challenge-seg cs-enterprise">Large enterprises</span>
+          <div class="challenge-trap">The Skills Void</div>
+          <p class="challenge-summary">Severe shortage of specialised AI, Data Science, and cybersecurity talent, combined with legacy system drag and new Industry 5.0 and ESG governance obligations.</p>
+        </div>
+        <div class="challenge-card-body">
+          <ul class="challenge-items">
+            <li>Local AI and cloud architects commanding R800k–R1.2m+ — unfillable at scale</li>
+            <li>Legacy platforms slowing digital agility and blocking cloud migration</li>
+            <li>National AI Policy Framework compliance requires dedicated governance work</li>
+            <li>Change management absent from technology deployments — ROI unrealised</li>
+            <li>Data localisation obligations forcing costly architecture rethinks</li>
+          </ul>
+          <div class="challenge-response">Vuselelwa solution: The Navigator</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PAGE 5: CONTACT ── -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="section-label">Start your renewal</div>
+        <h2 class="section-title">Let's talk about<br>your <em>digital revival</em></h2>
+        <div class="section-rule"></div>
+        <p class="contact-body">
+          Whether you are a government-funded startup navigating the Compliance Trap, an SMME defending against the Existential Threat, or a large enterprise confronting the Skills Void — Vuselelwa has a contextually grounded path forward for you.
+        </p>
+        <p class="contact-body">
+          Our engagement always begins with a free Digital Health Check — a no-obligation assessment of your current IT environment, compliance exposure, and load-shedding resilience. From that foundation, we build the renewal together.
+        </p>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <span class="cd-label">Location</span>
+            <span class="cd-val">Pretoria, Gauteng<br>South Africa</span>
+          </div>
+          <div class="contact-detail">
+            <span class="cd-label">Email</span>
+            <span class="cd-val">hello@vuselelwa.co.za</span>
+          </div>
+          <div class="contact-detail">
+            <span class="cd-label">Phone</span>
+            <span class="cd-val">+27 12 000 0000</span>
+          </div>
+          <div class="contact-detail">
+            <span class="cd-label">First step</span>
+            <span class="cd-val">Free Digital Health Check<br>No obligation — 45 minutes</span>
+          </div>
+        </div>
+        <a href="#contact" class="btn-primary">Book your free Health Check</a>
+      </div>
+
+      <div class="contact-right">
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="fname">First name</label>
+              <input class="form-input" type="text" id="fname" placeholder="Thabo" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lname">Last name</label>
+              <input class="form-input" type="text" id="lname" placeholder="Nkosi" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email address</label>
+            <input class="form-input" type="email" id="email" placeholder="thabo@yourcompany.co.za" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="company">Company name</label>
+            <input class="form-input" type="text" id="company" placeholder="Your company">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="segment">I am a...</label>
+            <select class="form-select" id="segment">
+              <option value="">Select your segment</option>
+              <option value="startup">Government-funded startup</option>
+              <option value="smme">Established SMME</option>
+              <option value="enterprise">Large enterprise</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="service">Service of interest</label>
+            <select class="form-select" id="service">
+              <option value="">Select a service</option>
+              <option value="launchpad">The Launchpad (Startups)</option>
+              <option value="fortress">The Fortress (SMMEs)</option>
+              <option value="navigator">The Navigator (Enterprises)</option>
+              <option value="healthcheck">Free Digital Health Check</option>
+              <option value="unsure">Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Tell us about your situation</label>
+            <textarea class="form-textarea" id="message" placeholder="Briefly describe your biggest IT challenge or what you'd like to achieve..."></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submit-btn">Send enquiry →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">Vuselelwa<span style="color:var(--gold)">.</span></div>
+      <p class="footer-tagline">South Africa's IT renewal company. Consult. Build. Empower. Pretoria, Gauteng.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#services">The Launchpad</a></li>
+        <li><a href="#services">The Fortress</a></li>
+        <li><a href="#services">The Navigator</a></li>
+        <li><a href="#contact">Health Check</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#about">About us</a></li>
+        <li><a href="#model">Our model</a></li>
+        <li><a href="#challenges">Who we serve</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Resources</h5>
+      <ul>
+        <li><a href="#contact">Vuselelwa Academy</a></li>
+        <li><a href="#contact">SA IT Report 2026</a></li>
+        <li><a href="#contact">POPIA Guide</a></li>
+        <li><a href="#contact">Cloud Calculator</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Vuselelwa IT (Pty) Ltd. All rights reserved.</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">POPIA Notice</a></span>
+  </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Form submit
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = 'Enquiry sent — we will be in touch within 24 hours ✓';
+    btn.style.background = 'var(--teal)';
+  }, 1200);
+}
+
+// Intersection observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.about-pillar, .service-card, .model-step, .vas-card, .challenge-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity .5s ease, transform .5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
